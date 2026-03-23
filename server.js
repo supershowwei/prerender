@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 var prerender = require('./lib');
 
-var server = prerender();
+var server = prerender({
+    chromeLocation: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    pageLoadTimeout: 5000
+});
 
 server.use(prerender.sendPrerenderHeader());
 server.use(prerender.browserForceRestart());
-// server.use(prerender.blockResources());
+server.use(prerender.blockResources());
 server.use(prerender.addMetaTags());
 server.use(prerender.removeScriptTags());
 server.use(prerender.httpHeaders());
