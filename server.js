@@ -3,7 +3,7 @@ var prerender = require('./lib');
 
 var server = prerender({
     chromeLocation: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-    pageLoadTimeout: 5000
+    pageLoadTimeout: 10000
 });
 
 server.use(prerender.sendPrerenderHeader());
