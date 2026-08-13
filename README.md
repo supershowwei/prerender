@@ -299,6 +299,14 @@ For example, if you rendered the HTML of an angular page but left the angular sc
 
 This plugin implements the `pageLoaded` function, so make sure any caching plugins run after this plugin is run to ensure you are caching pages with javascript removed.
 
+### removeTemplateTags
+
+We remove `<template>` tags along with their contents. The HTML serializer includes the contents of a template's `DocumentFragment` in the rendered output, but browsers never display it, so it is dead weight that can also confuse crawlers into indexing content that no visitor ever sees.
+
+Nested templates are handled correctly. The plugin repeatedly removes the innermost `<template>` block until none are left, so no orphaned `</template>` is ever left behind.
+
+This plugin implements the `pageLoaded` function, so make sure any caching plugins run after this plugin is run. Run it after `removeScriptTags` so that a `<template` string inside a javascript literal can't be mistaken for a real tag.
+
 ### httpHeaders
 
 If your Javascript routing has a catch-all for things like 404's, you can tell the prerender service to serve a 404 to google instead of a 200. This way, google won't index your 404's.
